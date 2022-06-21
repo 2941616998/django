@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-m3=nlh_p!8py-3780%+t_o*lbz^bsj$0!poeraz3x#fzty_j%&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blind'
+    'channels',
+    'blind',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +75,25 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASES = { 
+    'default': 
+    { 
+        'ENGINE': 'django.db.backends.mysql',    # 数据库引擎
+        'NAME': 'django', # 数据库名称
+        'HOST': '127.0.0.1', # 数据库地址，本机 ip 地址 127.0.0.1 
+        'PORT': 3306, # 端口 
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': '5550', # 数据库密码
+    }  
 }
+
 
 
 # Password validation
@@ -122,3 +136,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+ASGI_APPLICATION="server.asgi.application"
+
+CHANNEL_LAYERS={
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
+
